@@ -1,6 +1,6 @@
 # Prompt construction
 
-The repository retains the prompt templates used by the reported experiments in `blpo/prompts/`. Training and evaluation use the same construction path.
+The prompt templates are defined in `blpo/prompts/`. Training and evaluation use the same construction path.
 
 ## Shared construction
 
@@ -14,12 +14,10 @@ The initial observation already contains the natural-language task. The first pr
 [Observation k: '...', Action k: '...']
 ```
 
-The reported configuration uses a 2,048-token prompt limit, a 512-token response limit, and at most 50 environment steps.
+The reference configuration uses a 2,048-token prompt limit, a 512-token response limit, and at most 50 environment steps.
 
 ## WebShop
 
 The runtime extracts the instruction and visible page text from the environment's `[SEP]`-delimited observation. It exposes `search[<query>]` when a search box is present and converts clickable page elements to `click[...]` actions. Later prompts add the same two-step history used in ALFWorld.
 
-The reported configuration uses a 4,096-token prompt limit, a 512-token response limit, and at most 30 environment steps.
-
-Expanded raw prompt examples are intentionally not included in the release candidate because they can contain task-instance text. They can be added after the public data license and redaction policy are fixed.
+The reference configuration uses a 4,096-token prompt limit, a 512-token response limit, and at most 30 environment steps.

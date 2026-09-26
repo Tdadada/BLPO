@@ -11,7 +11,7 @@ BLPO replaces the advantage-estimation stage of an on-policy agent trainer. Roll
 5. Run the actor update with the returned `advantages` tensor.
 6. Save `blpo_memory.json` whenever an actor checkpoint is saved.
 
-The reported implementation incorporates the current batch before querying task-progress statistics. WebShop additionally centers residuals within the current batch, as specified in its configuration.
+BLPO incorporates the current batch before querying task-progress statistics. WebShop additionally centers residuals within the current batch, as specified in its configuration.
 
 ## Batch interface
 

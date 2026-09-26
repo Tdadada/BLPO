@@ -23,15 +23,15 @@ blpo/
   returns.py               trajectory and decision return utilities
   environments/            ALFWorld and WebShop rule implementations
   integration/trainer.py   minimal trainer adapter and memory checkpointing
-  prompts/                 prompts used in the reported experiments
-configs/                    paper configurations for both environments
-docs/                       integration, prompt, and provenance notes
+  prompts/                 environment prompt builders
+configs/                    reference configurations for both environments
+docs/                       integration and prompt documentation
 tests/                      deterministic unit tests
 ```
 
 ## Installation
 
-BLPO is an algorithm package layered on an existing on-policy agent-training runtime. It does not vendor the policy model, vLLM/Ray/FSDP runtime, or the ALFWorld/WebShop environments.
+BLPO is an algorithm package for on-policy agent training runtimes.
 
 ```bash
 git clone https://github.com/Tdadada/BLPO.git
@@ -45,11 +45,11 @@ For audit logging to Parquet, install the optional dependency:
 pip install -e ".[audit]"
 ```
 
-## External environments and data
+## Environment setup
 
-**Datasets, environment assets, model weights, checkpoints, and generated trajectories are not part of this repository and must not be committed.** Install them in external directories and point the host training runtime to those directories.
+BLPO integrates with [verl-agent](https://github.com/langfengQ/verl-agent) and provides task abstractions for [ALFWorld](https://github.com/alfworld/alfworld) and [WebShop](https://github.com/princeton-nlp/WebShop). Set up the training runtime and the target environment before launching a run.
 
-1. Install an agentic RL runtime. The reported experiments use the multi-turn rollout interface provided by [verl-agent](https://github.com/langfengQ/verl-agent). Follow its installation instructions for the CUDA, PyTorch, vLLM, Ray, and FSDP versions on your system, then install this package into the same Python environment.
+1. Install `verl-agent` and its CUDA, PyTorch, vLLM, Ray, and FSDP dependencies, then install BLPO in the same Python environment.
 2. For ALFWorld, follow the [official ALFWorld setup](https://github.com/alfworld/alfworld). A typical text-environment setup is:
 
    ```bash
@@ -67,9 +67,9 @@ pip install -e ".[audit]"
    export WEBSHOP_HOME=/absolute/path/to/webshop
    ```
 
-4. Download the Qwen2.5-Instruct backbone separately through the model provider accepted by your runtime, and reference its absolute path in the runtime configuration. Model files are never copied into this repository.
+4. Download the Qwen2.5-Instruct backbone through a model provider supported by your runtime and set its path in the runtime configuration.
 
-The checked-in YAML files contain only BLPO and rollout hyperparameters; paths to the environment data, task manifests, and model are supplied by the host runtime. The required per-decision metadata is listed in [docs/integration.md](docs/integration.md).
+Set the model, task manifest, and environment paths in the host runtime configuration. The required per-decision metadata is listed in [docs/integration.md](docs/integration.md).
 
 ## Training integration
 
@@ -102,16 +102,12 @@ estimator.save(checkpoint_dir)
 estimator.load(checkpoint_dir)
 ```
 
-The complete batch contract and integration points are documented in [docs/integration.md](docs/integration.md). Paper settings are in [configs/alfworld.yaml](configs/alfworld.yaml) and [configs/webshop.yaml](configs/webshop.yaml).
+The complete batch contract and integration points are documented in [docs/integration.md](docs/integration.md). Reference settings are provided in [configs/alfworld.yaml](configs/alfworld.yaml) and [configs/webshop.yaml](configs/webshop.yaml).
 
 ## Reproducibility
 
-The implementation was extracted from the code snapshot used to produce the paper's audited ALFWorld and WebShop step records. See [docs/provenance.md](docs/provenance.md). Run the local checks with:
+Run the test suite with:
 
 ```bash
 python -m pytest -q
 ```
-
-## Status
-
-This directory is the clean BLPO-only release candidate. It intentionally excludes baseline implementations, experimental variants, datasets, environment assets, model weights, checkpoints, optimizer states, cluster paths, and failed-run artifacts. A repository license should be selected before public release; third-party attribution is recorded in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
