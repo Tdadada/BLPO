@@ -31,11 +31,9 @@ tests/                      deterministic unit tests
 
 ## Installation
 
-BLPO is an algorithm package for on-policy agent training runtimes.
+BLPO is an algorithm package for on-policy agent training runtimes. From the repository root, run:
 
 ```bash
-git clone https://github.com/Tdadada/BLPO.git
-cd BLPO
 pip install -e .
 ```
 
