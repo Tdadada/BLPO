@@ -34,7 +34,7 @@ tests/                      deterministic unit tests
 BLPO is an algorithm package layered on an existing on-policy agent-training runtime. It does not vendor the policy model, vLLM/Ray/FSDP runtime, or the ALFWorld/WebShop environments.
 
 ```bash
-git clone <your-blpo-repository>
+git clone https://github.com/Tdadada/BLPO.git
 cd BLPO
 pip install -e .
 ```
