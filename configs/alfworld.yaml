@@ -1,0 +1,38 @@
+environment: alfworld
+
+blpo:
+  layers: [exact, role]
+  exact_prior: 1.0
+  role_prior: 0.5
+  ema_half_life: 8.0
+  epsilon: 1.0e-6
+  mode: mean_std_norm
+  role_estimator: residual_action
+  role_application: parallel
+  role_scope: all
+  role_confidence: true
+  role_confidence_tau: 0.05
+  role_confidence_support_scale: 4.0
+  role_residual_center: true
+  role_use_ema: true
+  role_action_abstraction: true
+  role_child_balance: true
+  exact_action_balance: true
+  alfworld_role_version: role_v1
+  step_advantage_w: 1.0
+
+rollout:
+  tasks_per_update: 16
+  samples_per_task: 8
+  max_steps: 50
+  history_length: 2
+  max_prompt_length: 2048
+  max_response_length: 512
+  temperature: 1.0
+
+training:
+  updates: 160
+  learning_rate: 1.0e-6
+  gamma: 0.95
+  format_penalty: 0.1
+  gpus: 4
