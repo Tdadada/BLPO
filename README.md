@@ -1,4 +1,4 @@
-# BLPO: Beyond-Local Policy Optimization via Cross-Trajectory Credit Assignment for Long-Horizon LLM Agents
+# BLPO: Beyond-Local Policy Optimization for Long-Horizon LLM Agents
 
 ![BLPO overview](assets/method_overview.png)
 
